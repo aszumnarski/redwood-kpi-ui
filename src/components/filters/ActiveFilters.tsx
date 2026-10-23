@@ -1,65 +1,49 @@
+import { Box, Button, Chip, Typography } from "@mui/material";
 import type { CoverageFilter } from "../../model/coverage";
 
 type Props = {
-    filter: CoverageFilter;
-    onClear: () => void;
+  filter: CoverageFilter;
+  onClear: () => void;
+  onRemoveFilter: (key: keyof CoverageFilter) => void;
 };
 
 export default function ActiveFilters({
-    filter,
-    onClear
+  filter,
+  onClear,
+  onRemoveFilter,
 }: Props) {
+  const entries = Object.entries(filter).filter(([_, value]) => value);
 
-    const entries = Object.entries(filter)
-        .filter(([_, value]) => value);
+  if (entries.length === 0) {
+    return null;
+  }
 
-    if (entries.length === 0) {
-        return null;
-    }
+  return (
+    <Box sx={{ mb: 2 }}>
+      <Typography variant="subtitle2" gutterBottom>
+        Active Filters
+      </Typography>
 
-    return (
-        <div
-            style={{
-                marginBottom: "16px",
-                padding: "12px",
-                background: "#f3f4f6",
-                borderRadius: "8px"
-            }}
-        >
-            <strong>Active Filters:</strong>
+      <Box
+        sx={{
+          display: "flex",
+          gap: 1,
+          flexWrap: "wrap",
+          alignItems: "center",
+        }}
+      >
+        {entries.map(([key, value]) => (
+          <Chip
+            key={key}
+            label={`${key}: ${value}`}
+            onDelete={() => onRemoveFilter(key as keyof CoverageFilter)}
+          />
+        ))}
 
-            <div
-                style={{
-                    display: "flex",
-                    gap: "8px",
-                    flexWrap: "wrap",
-                    marginTop: "8px"
-                }}
-            >
-                {entries.map(([key, value]) => (
-                    <span
-                        key={key}
-                        style={{
-                            padding: "4px 10px",
-                            background: "#2563eb",
-                            color: "white",
-                            borderRadius: "999px",
-                            fontSize: "12px"
-                        }}
-                    >
-                        {key}: {value}
-                    </span>
-                ))}
-            </div>
-
-            <button
-                style={{
-                    marginTop: "12px"
-                }}
-                onClick={onClear}
-            >
-                Clear Filters
-            </button>
-        </div>
-    );
+        <Button size="small" onClick={onClear}>
+          Clear All
+        </Button>
+      </Box>
+    </Box>
+  );
 }

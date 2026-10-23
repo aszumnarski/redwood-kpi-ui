@@ -1,85 +1,66 @@
-import { Card, CardContent, Grid, Typography } from "@mui/material";
+import { Grid, Paper, Typography } from "@mui/material";
 
 import type { CoverageViewRowDto } from "../../model/coverage";
 
 type Props = {
-  row: CoverageViewRowDto | null;
+  row: CoverageViewRowDto;
 };
 
-export default function CoverageInfoTab({ row }: Props) {
-  if (!row) {
-    return (
-      <Card>
-        <CardContent>
-          <Typography variant="h6">Coverage Information</Typography>
-
-          <Typography color="text.secondary" sx={{ mt: 2 }}>
-            Select a row from the Coverage table to display reconciliation
-            details.
-          </Typography>
-        </CardContent>
-      </Card>
-    );
-  }
-
+function InfoField({
+  label,
+  value,
+}: {
+  label: string;
+  value: string | number | null;
+}) {
   return (
-    <Card>
-      <CardContent>
-        <Typography variant="h6" gutterBottom>
-          Coverage Information
-        </Typography>
+    <div>
+      <Typography variant="caption" color="text.secondary">
+        {label}
+      </Typography>
 
-        <Grid container spacing={2}>
-          <Grid size={6}>
-            <Typography variant="body2" color="text.secondary">
-              Coverage Status
-            </Typography>
-            <Typography>{row.coverageStatus}</Typography>
-          </Grid>
+      <Typography variant="body1">{value ?? "-"}</Typography>
+    </div>
+  );
+}
 
-          <Grid size={6}>
-            <Typography variant="body2" color="text.secondary">
-              Company Code
-            </Typography>
-            <Typography>{row.companyCode ?? "-"}</Typography>
-          </Grid>
-
-          <Grid size={6}>
-            <Typography variant="body2" color="text.secondary">
-              Account Item
-            </Typography>
-            <Typography>{row.accountItem ?? "-"}</Typography>
-          </Grid>
-
-          <Grid size={6}>
-            <Typography variant="body2" color="text.secondary">
-              Category
-            </Typography>
-            <Typography>{row.category ?? "-"}</Typography>
-          </Grid>
-
-          <Grid size={6}>
-            <Typography variant="body2" color="text.secondary">
-              Frequency
-            </Typography>
-            <Typography>{row.frequency ?? "-"}</Typography>
-          </Grid>
-
-          <Grid size={6}>
-            <Typography variant="body2" color="text.secondary">
-              Recon Type
-            </Typography>
-            <Typography>{row.reconType ?? "-"}</Typography>
-          </Grid>
-
-          <Grid size={6}>
-            <Typography variant="body2" color="text.secondary">
-              Executions
-            </Typography>
-            <Typography>{row.executionCount}</Typography>
-          </Grid>
+export default function CoverageInfoTab({ row }: Props) {
+  return (
+    <Paper
+      variant="outlined"
+      sx={{
+        p: 3,
+      }}
+    >
+      <Grid container spacing={3}>
+        <Grid size={{ xs: 12, md: 6 }}>
+          <InfoField label="Coverage Status" value={row.coverageStatus} />
         </Grid>
-      </CardContent>
-    </Card>
+
+        <Grid size={{ xs: 12, md: 6 }}>
+          <InfoField label="Company Code" value={row.companyCode} />
+        </Grid>
+
+        <Grid size={{ xs: 12, md: 6 }}>
+          <InfoField label="Account Item" value={row.accountItem} />
+        </Grid>
+
+        <Grid size={{ xs: 12, md: 6 }}>
+          <InfoField label="Category" value={row.category} />
+        </Grid>
+
+        <Grid size={{ xs: 12, md: 6 }}>
+          <InfoField label="Frequency" value={row.frequency} />
+        </Grid>
+
+        <Grid size={{ xs: 12, md: 6 }}>
+          <InfoField label="Recon Type" value={row.reconType} />
+        </Grid>
+
+        <Grid size={{ xs: 12, md: 6 }}>
+          <InfoField label="Executions" value={row.executionCount} />
+        </Grid>
+      </Grid>
+    </Paper>
   );
 }

@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { Box, Paper, Tab, Tabs, Typography } from "@mui/material";
+import { Box, Paper, Stack, Tab, Tabs, Typography } from "@mui/material";
 
 import type { CoverageViewRowDto } from "../../model/coverage";
 
@@ -8,6 +8,7 @@ import CoverageInfoTab from "./CoverageInfoTab";
 import SummaryTab from "./SummaryTab";
 import JobHistoryTab from "./JobHistoryTab";
 import PerformanceTab from "./PerformanceTab";
+import StatusChip from "../StatusChip";
 
 type Props = {
   row: CoverageViewRowDto | null;
@@ -28,30 +29,24 @@ export default function DetailsPanel({ row }: Props) {
         p: 2,
       }}
     >
-      <Typography variant="h6" gutterBottom>
-        Details
-      </Typography>
-
-      {!row && (
-        <Typography color="text.secondary">
-          Select a row to view details.
-        </Typography>
-      )}
-
       {row && (
         <>
-          <Box sx={{ mb: 2 }}>
-            <Typography variant="body2">
-              <strong>Company:</strong> {row.companyCode}
-            </Typography>
+          <Typography variant="h5" gutterBottom>
+            {row.accountItem}
+          </Typography>
 
-            <Typography variant="body2">
-              <strong>Account Item:</strong> {row.accountItem}
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              gap: 1,
+              mb: 2,
+            }}
+          >
+            <Typography variant="body1" color="text.secondary">
+              Company: {row.companyCode}
             </Typography>
-
-            <Typography variant="body2">
-              <strong>Status:</strong> {row.coverageStatus}
-            </Typography>
+            <StatusChip status={row.coverageStatus} />
           </Box>
 
           <Tabs value={activeTab} onChange={handleTabChange} sx={{ mb: 2 }}>

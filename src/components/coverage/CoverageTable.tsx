@@ -1,6 +1,7 @@
 import { DataGrid } from "@mui/x-data-grid";
 import type { GridColDef, GridFilterModel } from "@mui/x-data-grid";
 import type { CoverageViewRowDto } from "../../model/coverage";
+import StatusChip from "../StatusChip";
 
 type Props = {
   rows: CoverageViewRowDto[];
@@ -18,6 +19,12 @@ export default function CoverageTable({
       field: "coverageStatus",
       headerName: "Status",
       width: 180,
+    
+      renderCell: (params) => (
+        <StatusChip
+          status={params.value}
+        />
+      )
     },
     {
       field: "companyCode",
@@ -66,6 +73,8 @@ export default function CoverageTable({
         disableColumnFilter
         disableColumnSelector
         disableDensitySelector
+
+        hideFooterSelectedRowCount
         
         onRowClick={(params) => onRowSelected(params.row)}
         pageSizeOptions={[25, 50, 100]}

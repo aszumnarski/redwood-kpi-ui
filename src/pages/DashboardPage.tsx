@@ -9,14 +9,17 @@ import type {
 } from "../model/coverage";
 
 import SummaryCards from "../components/summary/SummaryCards";
-import CoverageTable from "../components/coverage/CoverageTable";
-import GapChart from "../components/GapChart";
-import DetailsPanel from "../components/details/DetailsPanel";
-import ActiveFilters from "../components/filters/ActiveFilters";
 
-import TextField from "@mui/material/TextField";
+import GapChart from "../components/charts/GapChart";
+import CoverageDistributionChart from "../components/charts/CoverageDistributionChart";
+import DetailsPanel from "../components/details/DetailsPanel";
+
 import Button from "@mui/material/Button";
 import { Box } from "@mui/material";
+import InvestigationSection from "../components/sections/InvestigationSection";
+import ExecutiveSection from "../components/sections/ExecutiveSection";
+import AnalysisSection from "../components/sections/AnalysisSection";
+import DetailsSection from "../components/sections/DetailsSection";
 
 type Props = {
   darkMode: boolean;
@@ -100,44 +103,34 @@ function DashboardPage({ darkMode, setDarkMode }: Props) {
         </Button>
       </div>
 
-      <SummaryCards
+      <ExecutiveSection
         summary={dashboard.summary}
         onCoveragePercentageClick={clearFilters}
         onStatusClick={(status) => {
           setFilter({
-            status: status,
+            status,
           });
         }}
       />
+
       <Box sx={{ mb: 3 }}></Box>
-      <GapChart
-        title="Gap By Category"
-        data={dashboard.summary.gapsByCategory}
-        onBarClick={(category) => {
+      <AnalysisSection
+        summary={dashboard.summary}
+        onCategoryClick={(category) => {
           setFilter((current) => ({
             ...current,
             status: "Gap",
             category,
           }));
         }}
-      />
-      <Box sx={{ mb: 3 }}></Box>
-      <GapChart
-        title="Gap By Company"
-        data={dashboard.summary.gapsByCompany}
-        onBarClick={(company) => {
+        onCompanyClick={(companyCode) => {
           setFilter((current) => ({
             ...current,
             status: "Gap",
-            companyCode: company,
+            companyCode,
           }));
         }}
-      />
-      <Box sx={{ mb: 3 }}></Box>
-      <GapChart
-        title="Gap By Frequency"
-        data={dashboard.summary.gapsByFrequency}
-        onBarClick={(frequency) => {
+        onFrequencyClick={(frequency) => {
           setFilter((current) => ({
             ...current,
             status: "Gap",
@@ -146,36 +139,16 @@ function DashboardPage({ darkMode, setDarkMode }: Props) {
         }}
       />
       <Box sx={{ mb: 3 }}></Box>
-      <ActiveFilters filter={filter} onClear={() => setFilter({})} />
-
-      <TextField
-        fullWidth
-        label="Search"
-        value={filter.searchText ?? ""}
-        onChange={(e) =>
-          setFilter((current) => ({
-            ...current,
-            searchText: e.target.value,
-          }))
-        }
-      />
-
-      <div
-        style={{
-          marginBottom: "8px",
-          color: "#666",
-        }}
-      >
-        Showing {filteredRows.length.toLocaleString()} rows
-      </div>
-      <Box sx={{ mb: 3 }}></Box>
-      <CoverageTable
+      <InvestigationSection
+        filter={filter}
         rows={filteredRows}
         selectedRow={selectedRow}
+        onFilterChange={setFilter}
+        onClearFilters={clearFilters}
         onRowSelected={setSelectedRow}
       />
 
-      <DetailsPanel row={selectedRow} />
+      <DetailsSection row={selectedRow} />
     </>
   );
 }

@@ -7,7 +7,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-import type { DashboardBreakdownDto } from "../model/coverage";
+import type { DashboardBreakdownDto } from "../../model/coverage";
 import { useTheme } from "@mui/material/styles";
 
 type Props = {
