@@ -1,5 +1,5 @@
 import { DataGrid } from "@mui/x-data-grid";
-import type { GridColDef, GridFilterModel } from "@mui/x-data-grid";
+import type { GridColDef } from "@mui/x-data-grid";
 import type { CoverageViewRowDto } from "../../model/coverage";
 import StatusChip from "../StatusChip";
 
@@ -65,7 +65,7 @@ export default function CoverageTable({
   }));
 
   return (
-    <div style={{ height: 700, width: "100%" }}>
+    <div style={{ height: 560, width: "100%" }}>
       <DataGrid
         rows={gridRows}
         columns={columns}
@@ -75,6 +75,15 @@ export default function CoverageTable({
         disableDensitySelector
 
         hideFooterSelectedRowCount
+        getRowClassName={(params) => selectedRow && params.row.companyCode === selectedRow.companyCode && params.row.accountItem === selectedRow.accountItem ? "Mui-selected" : ""}
+        sx={{
+          border: 0,
+          "& .MuiDataGrid-columnHeaders": { bgcolor: "action.hover", borderRadius: 1, fontWeight: 700 },
+          "& .MuiDataGrid-columnHeaderTitle": { fontWeight: 700 },
+          "& .MuiDataGrid-cell:focus, & .MuiDataGrid-columnHeader:focus": { outline: "none" },
+          "& .MuiDataGrid-row:hover": { bgcolor: "action.hover" },
+          "& .MuiDataGrid-row.Mui-selected": { bgcolor: "action.selected" },
+        }}
         
         onRowClick={(params) => onRowSelected(params.row)}
         pageSizeOptions={[25, 50, 100]}

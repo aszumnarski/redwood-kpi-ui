@@ -9,7 +9,7 @@ type Props = {
   row: CoverageViewRowDto | null;
 };
 
-export default function PerformanceTab({ row }: Props) {
+export default function PerformanceTab(_props: Props) {
   const [coverageTrend, setCoverageTrend] = useState<TrendPointDto[]>([]);
 
   const [gapTrend, setGapTrend] = useState<TrendPointDto[]>([]);

@@ -1,4 +1,4 @@
-import { Alert, Paper, Typography } from "@mui/material";
+import { Alert, Paper } from "@mui/material";
 
 import type { CoverageViewRowDto } from "../../model/coverage";
 

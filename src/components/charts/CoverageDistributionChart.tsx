@@ -108,9 +108,9 @@ export default function CoverageDonut({ summary, onStatusClick }: Props) {
                 </Pie>
 
                 <Tooltip
-                  formatter={(value: number, name: string) => [
-                    value.toLocaleString(),
-                    name,
+                  formatter={(value, name) => [
+                    Number(value ?? 0).toLocaleString(),
+                    String(name ?? ""),
                   ]}
                   contentStyle={{
                     backgroundColor: theme.palette.background.paper,

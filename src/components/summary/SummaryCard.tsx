@@ -27,10 +27,8 @@ import {
     return (
       <Card
         onClick={onClick}
-        sx={{
-          cursor: onClick ? "pointer" : "default",
-          height: "100%",
-        }}
+        elevation={0}
+        sx={{ cursor: onClick ? "pointer" : "default", height: "100%", transition: "transform 160ms ease, box-shadow 160ms ease", ...(onClick ? { "&:hover": { transform: "translateY(-2px)", boxShadow: 3 }, "&:focus-visible": { outline: "2px solid", outlineColor: "primary.main" } } : {}) }}
       >
         <CardContent>
   
@@ -40,6 +38,8 @@ import {
               display: "flex",
               alignItems: "center",
               gap: 1,
+              fontSize: 13,
+              fontWeight: 600,
             }}
           >
             {icon}
@@ -51,6 +51,8 @@ import {
             sx={{
               color,
               mt: 1,
+              fontWeight: 750,
+              letterSpacing: -0.7,
             }}
           >
             {value}

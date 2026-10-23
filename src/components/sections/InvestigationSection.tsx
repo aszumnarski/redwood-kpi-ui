@@ -1,4 +1,5 @@
-import { Box, TextField, Typography } from "@mui/material";
+import { Box, Card, CardContent, InputAdornment, TextField, Typography } from "@mui/material";
+import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 
 import ActiveFilters from "../filters/ActiveFilters";
 import CoverageTable from "../coverage/CoverageTable";
@@ -33,7 +34,8 @@ export default function InvestigationSection({
   onRowSelected,
 }: Props) {
   return (
-    <>
+    <Card elevation={0}>
+      <CardContent>
       <ActiveFilters
         filter={filter}
         onClear={onClearFilters}
@@ -54,8 +56,11 @@ export default function InvestigationSection({
 
       <TextField
         fullWidth
-        label="Search"
+        placeholder="Search company, account, category or status"
+        aria-label="Search coverage inventory"
+        size="small"
         value={filter.searchText ?? ""}
+        slotProps={{ input: { startAdornment: <InputAdornment position="start"><SearchRoundedIcon fontSize="small" /></InputAdornment> } }}
         onChange={(e) =>
           onFilterChange({
             ...filter,
@@ -69,6 +74,7 @@ export default function InvestigationSection({
       <Typography
         variant="body2"
         color="text.secondary"
+        sx={{ mb: 1.5 }}
       >
         Showing {rows.length.toLocaleString()} rows
       </Typography>
@@ -80,6 +86,7 @@ export default function InvestigationSection({
         selectedRow={selectedRow}
         onRowSelected={onRowSelected}
       />
-    </>
+      </CardContent>
+    </Card>
   );
 }

@@ -153,8 +153,7 @@ import { useEffect, useState } from "react";
             </Typography>
   
             <Typography color="text.secondary">
-              Select a coverage row to display summary
-              metrics.
+              {loading ? "Loading summary metrics…" : "Select a coverage row to display summary metrics."}
             </Typography>
           </CardContent>
         </Card>

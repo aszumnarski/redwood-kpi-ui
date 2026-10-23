@@ -2,10 +2,6 @@ import PercentIcon from "@mui/icons-material/Percent";
 import SettingsIcon from "@mui/icons-material/Settings";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import WarningIcon from "@mui/icons-material/Warning";
-import BusinessIcon from "@mui/icons-material/Business";
-import ApartmentIcon from "@mui/icons-material/Apartment";
-import ScheduleIcon from "@mui/icons-material/Schedule";
-import ErrorIcon from "@mui/icons-material/Error";
 
 import type { DashboardSummaryDto } from "../../model/coverage";
 import { Grid } from "@mui/material";
@@ -22,7 +18,7 @@ type Props = {
 export default function SummaryCards(props: Props) {
   return (
     <Grid container spacing={2} sx={{ mb: 3 }}>
-      <Grid size={{ xs: 12, sm: 6, md: 3, lg: 1.5 }}>
+      <Grid size={{ xs: 12, sm: 6, lg: 3 }}>
         <SummaryCard
           title="Coverage %"
           value={`${props.summary.coveragePercentage.toFixed(1)}%`}
@@ -33,7 +29,7 @@ export default function SummaryCards(props: Props) {
         />
       </Grid>
 
-      <Grid size={{ xs: 12, sm: 6, md: 3, lg: 1.5 }}>
+      <Grid size={{ xs: 12, sm: 6, lg: 3 }}>
         <SummaryCard
           title="Configured"
           value={props.summary.configuredCount.toLocaleString()}
@@ -42,7 +38,7 @@ export default function SummaryCards(props: Props) {
         />
       </Grid>
 
-      <Grid size={{ xs: 12, sm: 6, md: 3, lg: 1.5 }}>
+      <Grid size={{ xs: 12, sm: 6, lg: 3 }}>
         <SummaryCard
           title="Covered"
           value={props.summary.coveredCount.toLocaleString()}
@@ -51,7 +47,7 @@ export default function SummaryCards(props: Props) {
         />
       </Grid>
 
-      <Grid size={{ xs: 12, sm: 6, md: 3, lg: 1.5 }}>
+      <Grid size={{ xs: 12, sm: 6, lg: 3 }}>
         <SummaryCard
           title="Gaps"
           value={props.summary.gapCount.toLocaleString()}

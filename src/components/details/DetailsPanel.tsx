@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { Box, Paper, Stack, Tab, Tabs, Typography } from "@mui/material";
+import { Box, Paper, Tab, Tabs, Typography } from "@mui/material";
 
 import type { CoverageViewRowDto } from "../../model/coverage";
 
